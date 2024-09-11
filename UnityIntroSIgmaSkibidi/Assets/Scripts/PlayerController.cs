@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     Vector2 camRotation;
 
     public bool sprintMode = false;
+    
 
     [Header("Movement Settings")]
     public float speed = 10.0f;
@@ -18,6 +19,9 @@ public class PlayerController : MonoBehaviour
     public float groundDetectDistance = 1f;
     public int jumps = 2;
     public int jumpsMax = 2;
+    public int dashes = 1;
+    public int dashesMax = 1;
+    public float dashDist = 20f;
 
     [Header("User Settings")]
     public bool sprintToggleOption = false;
@@ -80,9 +84,10 @@ public class PlayerController : MonoBehaviour
 
         temp.z = horizontalMove * speed;
 
-        if(Physics.Raycast(transform.position, -transform.up, groundDetectDistance, 1))
+        if(Physics.Raycast(transform.position, -transform.up, groundDetectDistance))
         {
-            jumps = jumpsMax;            
+            jumps = jumpsMax;
+            dashes = dashesMax;
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && jumps > 0)
@@ -92,5 +97,18 @@ public class PlayerController : MonoBehaviour
         }
 
         myRB.velocity = (temp.x * transform.forward) + (temp.z * transform.right) + (temp.y * transform.up);
+
+        if(Input.GetKeyDown(KeyCode.E) && dashes > 0)
+        {
+            dashes --;
+            myRB.velocity = playerCam.transform.forward * dashDist;
+        }
+
+
+
+
+
+
+
     }
 }
