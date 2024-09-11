@@ -4,40 +4,37 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    private Rigidbody myRB;
-
+    Rigidbody myRB;
     Camera playerCam;
 
     Vector2 camRotation;
 
-    [Header("Movement Settings")]
     public bool sprintMode = false;
+
+    [Header("Movement Settings")]
     public float speed = 10.0f;
-    public float jumpHeight = 5.0f;
-    public float groundDetectDistance = 1.0f;
     public float sprintMultiplier = 2.5f;
+    public float jumpHeight = 5.0f;
+    public float groundDetectDistance = 1f;
+    public int jumps = 2;
+    public int jumpsMax = 2;
 
     [Header("User Settings")]
     public bool sprintToggleOption = false;
-    public float camRotationLimit = 90f;
+    public float mouseSensitivity = 2.0f;
     public float Xsensitivity = 2.0f;
     public float Ysensitivity = 2.0f;
-    public float mouseSensitivity = 2.0f;
-
-   
+    public float camRotationLimit = 90f;
 
     // Start is called before the first frame update
     void Start()
     {
         myRB = GetComponent<Rigidbody>();
-
         playerCam = transform.GetChild(0).GetComponent<Camera>();
-        camRotation = Vector2.zero;
 
+        camRotation = Vector2.zero;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
-
-
     }
 
     // Update is called once per frame
@@ -56,41 +53,44 @@ public class PlayerController : MonoBehaviour
         float verticalMove = Input.GetAxisRaw("Vertical");
         float horizontalMove = Input.GetAxisRaw("Horizontal");
 
-        if (!sprintMode)
-            temp.x = verticalMove * speed;
-       
-
-        if (sprintMode)
-           temp.x = verticalMove * speed * sprintMultiplier;
-        temp.z = horizontalMove * speed;
-
-
         if (!sprintToggleOption)
         {
-         if (Input.GetKey(KeyCode.LeftShift))
-            sprintMode = true;
+            if (Input.GetKey(KeyCode.LeftShift))
+                sprintMode = true;
 
-         if(Input.GetKeyUp(KeyCode.LeftShift))
-           sprintMode = false;
-
-
-        }
-        
-        if(sprintToggleOption)
-        {
-            if (Input.GetKeyDown(KeyCode.LeftShift) && verticalMove > 0)
+            if (Input.GetKeyUp(KeyCode.LeftShift))
                 sprintMode = false;
+        }
+
+        if (sprintToggleOption)
+        {
+            if (Input.GetKey(KeyCode.LeftShift) && verticalMove > 0)
+                sprintMode = true;
 
             if (verticalMove <= 0)
                 sprintMode = false;
         }
 
-        if (Input.GetKeyDown(KeyCode.Space) && Physics.Raycast(transform.position, -transform.up, groundDetectDistance))
+        if (!sprintMode)
+            temp.x = verticalMove * speed;
+
+        if (sprintMode)
+            temp.x = verticalMove * speed * sprintMultiplier;
+
+
+        temp.z = horizontalMove * speed;
+
+        if(Physics.Raycast(transform.position, -transform.up, groundDetectDistance, 1))
+        {
+            jumps = jumpsMax;            
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && jumps > 0)
+        {
             temp.y = jumpHeight;
-        
+            jumps --;
+        }
 
         myRB.velocity = (temp.x * transform.forward) + (temp.z * transform.right) + (temp.y * transform.up);
-
-        
     }
 }

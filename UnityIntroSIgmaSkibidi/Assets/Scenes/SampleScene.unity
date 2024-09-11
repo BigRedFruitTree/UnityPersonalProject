@@ -354,7 +354,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 75cb5b5ed87fec94e88ebba115f39f62, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -530,11 +530,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprintMode: 0
   speed: 10
+  sprintMultiplier: 2.5
   jumpHeight: 5
   groundDetectDistance: 1
-  sprintMultiplier: 2.5
+  jumps: 2
+  jumpsMax: 2
   sprintToggleOption: 0
-  camRotationLimit: 90
+  mouseSensitivity: 2
   Xsensitivity: 2
   Ysensitivity: 2
-  mouseSensitivity: 2
+  camRotationLimit: 90
