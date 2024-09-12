@@ -95,6 +95,12 @@ public class PlayerController : MonoBehaviour
             jumps --;
         }
 
+        if(Input.GetKey(KeyCode.E))
+        {
+            dashes--;
+          
+        }
+
         myRB.velocity = (temp.x * transform.forward) + (temp.z * transform.right) + (temp.y * transform.up);
 
         
