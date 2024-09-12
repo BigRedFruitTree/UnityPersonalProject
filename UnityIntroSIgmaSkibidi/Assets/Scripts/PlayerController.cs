@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public int jumpsMax = 2;
     public int dashes = 1;
     public int dashesMax = 1;
-    public float dashDist = 20f;
+    public float dashDist = 100f;
 
     [Header("User Settings")]
     public bool sprintToggleOption = false;
@@ -81,7 +81,6 @@ public class PlayerController : MonoBehaviour
         if (sprintMode)
             temp.x = verticalMove * speed * sprintMultiplier;
 
-
         temp.z = horizontalMove * speed;
 
         if(Physics.Raycast(transform.position, -transform.up, groundDetectDistance))
@@ -98,11 +97,7 @@ public class PlayerController : MonoBehaviour
 
         myRB.velocity = (temp.x * transform.forward) + (temp.z * transform.right) + (temp.y * transform.up);
 
-        if(Input.GetKeyDown(KeyCode.E) && dashes > 0)
-        {
-            dashes --;
-            myRB.velocity = playerCam.transform.forward * dashDist;
-        }
+        
 
 
 
