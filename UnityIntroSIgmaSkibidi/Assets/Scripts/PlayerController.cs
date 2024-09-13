@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,9 +20,7 @@ public class PlayerController : MonoBehaviour
     public float groundDetectDistance = 1f;
     public int jumps = 2;
     public int jumpsMax = 2;
-    public int dashes = 1;
-    public int dashesMax = 1;
-    public float dashDist = 100f;
+   
 
     [Header("User Settings")]
     public bool sprintToggleOption = false;
@@ -86,19 +85,13 @@ public class PlayerController : MonoBehaviour
         if(Physics.Raycast(transform.position, -transform.up, groundDetectDistance))
         {
             jumps = jumpsMax;
-            dashes = dashesMax;
+            
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && jumps > 0)
         {
             temp.y = jumpHeight;
             jumps --;
-        }
-
-        if(Input.GetKey(KeyCode.E))
-        {
-            dashes--;
-          
         }
 
         myRB.velocity = (temp.x * transform.forward) + (temp.z * transform.right) + (temp.y * transform.up);
@@ -112,4 +105,6 @@ public class PlayerController : MonoBehaviour
 
 
     }
+
+   
 }
