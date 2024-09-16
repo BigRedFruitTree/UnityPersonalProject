@@ -10,8 +10,16 @@ public class PlayerController : MonoBehaviour
 
     Vector2 camRotation;
 
-    public bool sprintMode = false;
+    public Transform weaponSlot;
     
+    [Header("Weapon Stats")]
+    public bool canFire = true;
+
+
+    [Header("Player Stats")]
+    public int health = 5;
+    public int maxHealth = 5;
+    public int healthRestore = 1;
 
     [Header("Movement Settings")]
     public float speed = 10.0f;
@@ -20,7 +28,8 @@ public class PlayerController : MonoBehaviour
     public float groundDetectDistance = 1f;
     public int jumps = 2;
     public int jumpsMax = 2;
-   
+    public bool sprintMode = false;
+
 
     [Header("User Settings")]
     public bool sprintToggleOption = false;
@@ -96,15 +105,30 @@ public class PlayerController : MonoBehaviour
 
         myRB.velocity = (temp.x * transform.forward) + (temp.z * transform.right) + (temp.y * transform.up);
 
-        
-
-
-
-
-
-
 
     }
 
-   
+    private void OnTriggerEnter(Collider other)
+    {
+        if ((health < maxHealth) && other.gameObject.tag == "HealthPickup")
+        {
+            health += healthRestore;
+            if (health > maxHealth)
+                health = maxHealth;
+
+            Destroy(other.gameObject);
+        }
+        if (other.gameObject.tag == "Weapon")
+            other.gameObject.transform.SetParent(weaponSlot);
+
+       
+    
+    }
+  
+    IEnumerator cooldownFire(float time)
+    {
+        yield return new WaitForSeconds(time);
+            canFire = true;
+    }
+
 }
