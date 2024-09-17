@@ -14,7 +14,14 @@ public class PlayerController : MonoBehaviour
     
     [Header("Weapon Stats")]
     public bool canFire = true;
-
+    public int weaponId = 0;
+    public float fireRate = 0;
+    public float recoil = 0;
+    public float ammo = 0;
+    public float maxAmmo = 0;
+    public float reloadAmount = 0;
+    public float ammoRefillAmount = 0;
+   
 
     [Header("Player Stats")]
     public int health = 5;
@@ -59,6 +66,22 @@ public class PlayerController : MonoBehaviour
 
         playerCam.transform.localRotation = Quaternion.AngleAxis(camRotation.y, Vector3.left);
         transform.localRotation = Quaternion.AngleAxis(camRotation.x, Vector3.up);
+
+        if(Input.GetMouseButtonDown(0) && canFire && ammo > 0)
+        {
+            canFire = false;
+            StartCoroutine("cooldownFire");
+            ammo--;
+
+        }
+
+        if(Input.GetKeyDown(KeyCode.R) )
+        {
+            reloadAmmo();
+        } 
+
+
+
 
         Vector3 temp = myRB.velocity;
 
@@ -110,6 +133,31 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.tag == "Weapon")
+        {
+
+            other.gameObject.transform.position = weaponSlot.position;
+            other.gameObject.transform.SetParent(weaponSlot);
+
+            switch (other.gameObject.name)
+            {
+                case "Weapon":
+                      weaponId = 0;
+                      fireRate = 0.25f;
+                      recoil = 1;
+                      ammo = 100;
+                      maxAmmo = 100;
+                      reloadAmount = 20;
+                    ammoRefillAmount = 100;
+                    break;
+                   
+
+                 default:
+                    break;
+            }
+            
+        }
+   
         if ((health < maxHealth) && other.gameObject.tag == "HealthPickup")
         {
             health += healthRestore;
@@ -118,16 +166,45 @@ public class PlayerController : MonoBehaviour
 
             Destroy(other.gameObject);
         }
-        if (other.gameObject.tag == "Weapon")
-            other.gameObject.transform.SetParent(weaponSlot);
 
-       
-    
+        if ((ammo < maxAmmo) && other.gameObject.tag == "AmmoPickup")
+        {
+            reloadAmount += ammoRefillAmount;
+            if (ammo > maxAmmo)
+                ammo = maxAmmo;
+
+            Destroy(other.gameObject);
+        }
+
+
     }
   
-    IEnumerator cooldownFire(float time)
+    public void reloadAmmo()
     {
-        yield return new WaitForSeconds(time);
+        if(ammo < maxAmmo)
+        {
+            ammo += reloadAmount;
+            reloadAmount--;
+
+        }
+
+        if(reloadAmount < reloadAmount/3)
+        {
+            ammo += reloadAmount;
+            
+        }
+    }
+
+
+
+
+
+
+
+
+    IEnumerator cooldownFire()
+    {
+        yield return new WaitForSeconds(fireRate);
             canFire = true;
     }
 
