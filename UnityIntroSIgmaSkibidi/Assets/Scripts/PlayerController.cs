@@ -13,14 +13,18 @@ public class PlayerController : MonoBehaviour
     public Transform weaponSlot;
     
     [Header("Weapon Stats")]
+    public GameObject bullet;
     public bool canFire = true;
     public int weaponId = 0;
+    public float bulletSpeed = 15;
     public float fireRate = 0;
     public float recoil = 0;
     public float ammo = 0;
     public float maxAmmo = 0;
     public float reloadAmount = 0;
     public float ammoRefillAmount = 0;
+    public float bulletLifespan = 0;
+    
    
 
     [Header("Player Stats")]
@@ -36,6 +40,9 @@ public class PlayerController : MonoBehaviour
     public int jumps = 2;
     public int jumpsMax = 2;
     public bool sprintMode = false;
+    public int dashDist = 100;
+    public int dashes = 1;
+    public int dashMax = 1;
 
 
     [Header("User Settings")]
@@ -67,11 +74,16 @@ public class PlayerController : MonoBehaviour
         playerCam.transform.localRotation = Quaternion.AngleAxis(camRotation.y, Vector3.left);
         transform.localRotation = Quaternion.AngleAxis(camRotation.x, Vector3.up);
 
-        if(Input.GetMouseButtonDown(0) && canFire && ammo > 0)
+        if(Input.GetMouseButtonDown(0) && canFire && ammo > 0 && weaponId > 0)
         {
+            GameObject s = Instantiate(bullet, weaponSlot.position, weaponSlot.rotation);
+            s.GetComponent<Rigidbody>().AddForce(playerCam.transform.forward * bulletSpeed);
+            Destroy(s, bulletLifespan);
+
             canFire = false;
-            StartCoroutine("cooldownFire");
             ammo--;
+            StartCoroutine("cooldownFire");
+           
 
         }
 
@@ -117,7 +129,7 @@ public class PlayerController : MonoBehaviour
         if(Physics.Raycast(transform.position, -transform.up, groundDetectDistance))
         {
             jumps = jumpsMax;
-            
+            dashes = dashMax;
         }
 
         if (Input.GetKeyDown(KeyCode.Space) && jumps > 0)
@@ -127,6 +139,19 @@ public class PlayerController : MonoBehaviour
         }
 
         myRB.velocity = (temp.x * transform.forward) + (temp.z * transform.right) + (temp.y * transform.up);
+
+        if (Input.GetKeyDown(KeyCode.E) && dashes > 0)
+        {
+
+            dashes--;
+
+            myRB.AddForce(transform.forward * dashDist);
+            myRB.velocity = playerCam.transform.forward * dashDist;
+           
+           
+          
+
+        }
 
 
     }
@@ -141,14 +166,16 @@ public class PlayerController : MonoBehaviour
 
             switch (other.gameObject.name)
             {
-                case "Weapon":
-                      weaponId = 0;
-                      fireRate = 0.25f;
+                case "Weapon1":
+                    weaponId = 1;
+                      fireRate = 0.50f;
                       recoil = 1;
-                      ammo = 100;
-                      maxAmmo = 100;
+                      ammo = 20;
+                      maxAmmo = 20;
                       reloadAmount = 20;
-                    ammoRefillAmount = 100;
+                      ammoRefillAmount = 20;
+                    bulletLifespan = 3;
+                    bulletSpeed = 1000;
                     break;
                    
 
@@ -169,7 +196,7 @@ public class PlayerController : MonoBehaviour
 
         if ((ammo < maxAmmo) && other.gameObject.tag == "AmmoPickup")
         {
-            reloadAmount += ammoRefillAmount;
+            reloadAmount = ammoRefillAmount;
             if (ammo > maxAmmo)
                 ammo = maxAmmo;
 
@@ -193,6 +220,9 @@ public class PlayerController : MonoBehaviour
             ammo += reloadAmount;
             
         }
+
+        if (ammo > maxAmmo)
+            ammo = maxAmmo;
     }
 
 
