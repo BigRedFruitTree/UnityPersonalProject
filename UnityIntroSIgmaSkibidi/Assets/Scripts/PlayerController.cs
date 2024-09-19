@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
     [Header("Player Stats")]
     public int health = 5;
     public int maxHealth = 5;
-    public int healthRestore = 1;
+    public int healthRestore = 5;
 
     [Header("Movement Settings")]
     public float speed = 10.0f;
@@ -40,9 +40,13 @@ public class PlayerController : MonoBehaviour
     public int jumps = 2;
     public int jumpsMax = 2;
     public bool sprintMode = false;
-    public int dashDist = 100;
+
+    public int dashDist = 2000;
     public int dashes = 1;
     public int dashMax = 1;
+    public float startDashSpeed = 10;
+    public float endDashSpeed = 15;
+    public float dashingTime = 1;
 
 
     [Header("User Settings")]
@@ -76,15 +80,17 @@ public class PlayerController : MonoBehaviour
 
         if(Input.GetMouseButtonDown(0) && canFire && ammo > 0 && weaponId > 0)
         {
-            GameObject s = Instantiate(bullet, weaponSlot.position, weaponSlot.rotation);
-            s.GetComponent<Rigidbody>().AddForce(playerCam.transform.forward * bulletSpeed);
-            Destroy(s, bulletLifespan);
+            
+             GameObject s = Instantiate(bullet, weaponSlot.position, weaponSlot.rotation);
+             s.GetComponent<Rigidbody>().AddForce(playerCam.transform.forward * bulletSpeed);
+             Destroy(s, bulletLifespan);
 
-            canFire = false;
-            ammo--;
-            StartCoroutine("cooldownFire");
-           
+             canFire = false;
+             ammo--;
+             StartCoroutine("cooldownFire");
 
+                
+            
         }
 
         if(Input.GetKeyDown(KeyCode.R) )
@@ -145,14 +151,17 @@ public class PlayerController : MonoBehaviour
 
             dashes--;
 
-            myRB.AddForce(transform.forward * dashDist);
-            myRB.velocity = playerCam.transform.forward * dashDist;
-           
+            myRB.AddForce(transform.forward * dashDist, ForceMode.Impulse);
+
+            //speed = Mathf.Lerp(startDashSpeed, endDashSpeed, dashingTime);
+               //dashingTime = Time.deltaTime;
+
            
           
 
         }
 
+       
 
     }
 
@@ -161,12 +170,13 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Weapon")
         {
 
-            other.gameObject.transform.position = weaponSlot.position;
+            other.gameObject.transform.SetPositionAndRotation(weaponSlot.position, weaponSlot.rotation);
             other.gameObject.transform.SetParent(weaponSlot);
 
             switch (other.gameObject.name)
             {
                 case "Weapon1":
+
                     weaponId = 1;
                       fireRate = 0.50f;
                       recoil = 1;
@@ -203,7 +213,8 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-
+        if (other.gameObject.tag == "Enemy")
+            health--;
     }
   
     public void reloadAmmo()
