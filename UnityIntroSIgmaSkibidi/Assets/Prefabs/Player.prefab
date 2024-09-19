@@ -147,16 +147,14 @@ MonoBehaviour:
   speed: 15
   sprintMultiplier: 2.5
   jumpHeight: 5
-  groundDetectDistance: 1
+  groundDetectDistance: 1.5
   jumps: 2
   jumpsMax: 2
   sprintMode: 0
+  isGrounded: 1
   dashDist: 2000
   dashes: 1
   dashMax: 1
-  startDashSpeed: 10
-  endDashSpeed: 15
-  dashingTime: 1
   sprintToggleOption: 0
   mouseSensitivity: 2
   Xsensitivity: 2

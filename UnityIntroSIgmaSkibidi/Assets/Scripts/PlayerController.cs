@@ -23,6 +23,7 @@ public class PlayerController : MonoBehaviour
     public float maxAmmo = 0;
     public float reloadAmount = 0;
     public float ammoRefillAmount = 0;
+    public float maxAmmoRefillAmount = 0;
     public float bulletLifespan = 0;
     
    
@@ -40,13 +41,14 @@ public class PlayerController : MonoBehaviour
     public int jumps = 2;
     public int jumpsMax = 2;
     public bool sprintMode = false;
+    public bool isGrounded = true;
 
     public int dashDist = 2000;
     public int dashes = 1;
     public int dashMax = 1;
-    public float startDashSpeed = 10;
-    public float endDashSpeed = 15;
-    public float dashingTime = 1;
+   // public float startDashSpeed = 10;
+   // public float endDashSpeed = 15;
+    //public float dashingTime = 1;
 
 
     [Header("User Settings")]
@@ -132,11 +134,16 @@ public class PlayerController : MonoBehaviour
 
         temp.z = horizontalMove * speed;
 
-        if(Physics.Raycast(transform.position, -transform.up, groundDetectDistance))
+        if (Physics.Raycast(transform.position, -transform.up, groundDetectDistance))
         {
             jumps = jumpsMax;
             dashes = dashMax;
+            isGrounded = true;
         }
+        else
+            isGrounded = false;
+
+        
 
         if (Input.GetKeyDown(KeyCode.Space) && jumps > 0)
         {
@@ -146,7 +153,7 @@ public class PlayerController : MonoBehaviour
 
         myRB.velocity = (temp.x * transform.forward) + (temp.z * transform.right) + (temp.y * transform.up);
 
-        if (Input.GetKeyDown(KeyCode.E) && dashes > 0)
+        if (Input.GetKeyDown(KeyCode.E) && dashes > 0 && isGrounded == false)
         {
 
             dashes--;
@@ -186,6 +193,7 @@ public class PlayerController : MonoBehaviour
                       ammoRefillAmount = 20;
                     bulletLifespan = 3;
                     bulletSpeed = 1000;
+                    maxAmmoRefillAmount = 5;
                     break;
                    
 
@@ -226,14 +234,21 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        if(reloadAmount < reloadAmount/3)
-        {
-            ammo += reloadAmount;
-            
-        }
-
         if (ammo > maxAmmo)
             ammo = maxAmmo;
+
+        if (reloadAmount < 0)
+        {
+          reloadAmount = 0;
+        }
+           
+
+        if (reloadAmount == 0 && ammoRefillAmount > 0)
+        { 
+          reloadAmount = maxAmmoRefillAmount;
+            ammoRefillAmount--;
+        }
+            
     }
 
 
