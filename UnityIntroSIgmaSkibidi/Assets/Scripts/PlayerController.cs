@@ -43,12 +43,14 @@ public class PlayerController : MonoBehaviour
     public bool sprintMode = false;
     public bool isGrounded = true;
 
-    public int dashDist = 2000;
+    public float dashDist = 100;
     public int dashes = 1;
     public int dashMax = 1;
-   // public float startDashSpeed = 10;
-   // public float endDashSpeed = 15;
-    //public float dashingTime = 1;
+    public float startDashSpeed = 1;
+    public float endDashSpeed = 100;
+    public float dashingTime = 0;
+
+
 
 
     [Header("User Settings")]
@@ -89,6 +91,7 @@ public class PlayerController : MonoBehaviour
 
              canFire = false;
              ammo--;
+
              StartCoroutine("cooldownFire");
 
                 
@@ -158,18 +161,19 @@ public class PlayerController : MonoBehaviour
 
             dashes--;
 
-            myRB.AddForce(transform.forward * dashDist, ForceMode.Impulse);
 
-            //speed = Mathf.Lerp(startDashSpeed, endDashSpeed, dashingTime);
-               //dashingTime = Time.deltaTime;
+            //myRB.AddForce(transform.right * dashDist, ForceMode.Impulse);
 
-           
-          
+            myRB.velocity = playerCam.transform.forward * dashDist;
+
+
+
+
 
         }
 
-       
 
+       dashingTime += Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -215,6 +219,7 @@ public class PlayerController : MonoBehaviour
         if ((ammo < maxAmmo) && other.gameObject.tag == "AmmoPickup")
         {
             reloadAmount = ammoRefillAmount;
+            ammoRefillAmount--;
             if (ammo > maxAmmo)
                 ammo = maxAmmo;
 

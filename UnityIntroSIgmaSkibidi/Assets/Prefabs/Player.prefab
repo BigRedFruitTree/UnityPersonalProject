@@ -140,6 +140,7 @@ MonoBehaviour:
   maxAmmo: 0
   reloadAmount: 0
   ammoRefillAmount: 0
+  maxAmmoRefillAmount: 0
   bulletLifespan: 0
   health: 5
   maxHealth: 5
@@ -152,9 +153,12 @@ MonoBehaviour:
   jumpsMax: 2
   sprintMode: 0
   isGrounded: 1
-  dashDist: 2000
+  dashDist: 100
   dashes: 1
   dashMax: 1
+  startDashSpeed: 0
+  endDashSpeed: 100
+  dashingTime: 0
   sprintToggleOption: 0
   mouseSensitivity: 2
   Xsensitivity: 2
