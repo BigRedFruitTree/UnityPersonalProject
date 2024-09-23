@@ -9,6 +9,7 @@ TagManager:
   - Bullet
   - Enemy
   - AmmoPickup
+  - Acid
   layers:
   - Default
   - TransparentFX

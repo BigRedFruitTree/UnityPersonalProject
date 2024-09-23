@@ -32,26 +32,24 @@ public class PlayerController : MonoBehaviour
     public int healthRestore = 5;
 
     [Header("Movement Settings")]
-    public float speed = 20.0f;
+    public float speed = 15.0f;
     public float sprintMultiplier = 2.5f;
     public float jumpHeight = 5.0f;
     public float groundDetectDistance = 1f;
-    public int jumps = 2;
-    public int jumpsMax = 2;
+    public int jumps = 1;
+    public int jumpsMax = 1;
     public bool sprintMode = false;
     public bool isGrounded = true;
-    public float stamina = 100;
-    public float maxStamina = 100;
+    public float stamina = 150;
+    public float maxStamina = 150;
 
     public float dashDist = 100;
     public int dashes = 1;
     public int dashMax = 1;
-    public float startDashSpeed = 1;
-    public float endDashSpeed = 100;
-    public float dashingTime = 0;
 
-    
+
     [Header("User Settings")]
+    public GameObject SpawnPoint;
     public float mouseSensitivity = 2.0f;
     public float Xsensitivity = 2.0f;
     public float Ysensitivity = 2.0f;
@@ -63,6 +61,7 @@ public class PlayerController : MonoBehaviour
     {
         myRB = GetComponent<Rigidbody>();
         playerCam = transform.GetChild(0).GetComponent<Camera>();
+        transform.position = SpawnPoint.transform.position;
 
         camRotation = Vector2.zero;
         Cursor.visible = false;
@@ -188,7 +187,7 @@ public class PlayerController : MonoBehaviour
         }
 
 
-       dashingTime += Time.deltaTime;
+      
 
         if (health < 0)
             health = 0;
@@ -246,7 +245,11 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-       
+        if (other.gameObject.tag == "Acid")
+        {
+            transform.position = SpawnPoint.transform.position;
+            
+        }
     }
 
 
@@ -277,17 +280,9 @@ public class PlayerController : MonoBehaviour
           reloadAmount = 0;
         }
            
-
-        
-            
     }
 
-
-
-
-
-
-
+    
 
     IEnumerator cooldownFire()
     {
