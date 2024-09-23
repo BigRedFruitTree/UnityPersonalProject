@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     public int healthRestore = 5;
 
     [Header("Movement Settings")]
-    public float speed = 10.0f;
+    public float speed = 20.0f;
     public float sprintMultiplier = 2.5f;
     public float jumpHeight = 5.0f;
     public float groundDetectDistance = 1f;
@@ -41,6 +41,7 @@ public class PlayerController : MonoBehaviour
     public bool sprintMode = false;
     public bool isGrounded = true;
     public float stamina = 100;
+    public float maxStamina = 100;
 
     public float dashDist = 100;
     public int dashes = 1;
@@ -116,9 +117,15 @@ public class PlayerController : MonoBehaviour
         float verticalMove = Input.GetAxisRaw("Vertical");
         float horizontalMove = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.LeftShift))
+        if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
         {
-            sprintMode = true; 
+            if (stamina > 0)
+            {
+                sprintMode = true;
+            }
+            else
+                sprintMode = false;
+            
 
         }
     
@@ -126,8 +133,26 @@ public class PlayerController : MonoBehaviour
         {
              sprintMode = false;
         }
-               
+
+        if (sprintMode == true)
+            stamina--;
+
+        if (stamina < 0)
+            stamina = 0;
+
+        if (stamina == 0)
+            sprintMode = false;
+
+        if (sprintMode == false)
+        {
+            stamina++;
+        }
+
+        if (stamina > maxStamina)
+            stamina = maxStamina;
         
+        
+
         if (!sprintMode)
             temp.x = verticalMove * speed;
 
