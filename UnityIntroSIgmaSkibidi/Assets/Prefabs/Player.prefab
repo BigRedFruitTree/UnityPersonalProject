@@ -147,8 +147,8 @@ MonoBehaviour:
   sprintMultiplier: 2.5
   jumpHeight: 5
   groundDetectDistance: 1.1
-  jumps: 1
-  jumpsMax: 1
+  jumps: 2
+  jumpsMax: 2
   sprintMode: 0
   isGrounded: 1
   stamina: 150

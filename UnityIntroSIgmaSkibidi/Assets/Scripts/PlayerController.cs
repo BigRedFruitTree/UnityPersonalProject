@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -36,16 +37,12 @@ public class PlayerController : MonoBehaviour
     public float sprintMultiplier = 2.5f;
     public float jumpHeight = 5.0f;
     public float groundDetectDistance = 1f;
-    public int jumps = 1;
-    public int jumpsMax = 1;
+    public int jumps = 2;
+    public int jumpsMax = 2;
     public bool sprintMode = false;
     public bool isGrounded = true;
     public float stamina = 150;
     public float maxStamina = 150;
-
-    public float dashDist = 100;
-    public int dashes = 1;
-    public int dashMax = 1;
 
 
     [Header("User Settings")]
@@ -163,7 +160,7 @@ public class PlayerController : MonoBehaviour
         if (Physics.Raycast(transform.position, -transform.up, groundDetectDistance))
         {
             jumps = jumpsMax;
-            dashes = dashMax;
+            
             isGrounded = true;
         }
         else
@@ -178,16 +175,6 @@ public class PlayerController : MonoBehaviour
         }
 
         myRB.velocity = (temp.x * transform.forward) + (temp.z * transform.right) + (temp.y * transform.up);
-
-        if (Input.GetKeyDown(KeyCode.E) && dashes > 0 && isGrounded == false && GameOver == false)
-        {
-
-            dashes--;
-            
-        }
-
-
-      
 
         if (health < 0)
             health = 0;
@@ -210,22 +197,22 @@ public class PlayerController : MonoBehaviour
                 case "Weapon1":
 
                     weaponId = 1;
-                      fireRate = 0.50f;
-                      recoil = 1;
-                      ammo = 20;
-                      maxAmmo = 20;
-                      reloadAmount = 20;
+                    fireRate = 0.50f;
+                    recoil = 1;
+                    ammo = 20;
+                    maxAmmo = 20;
+                    reloadAmount = 20;
                     bulletLifespan = 3;
                     bulletSpeed = 1000;
                     break;
-                   
 
-                 default:
+
+                default:
                     break;
             }
-            
+
         }
-   
+
         if ((health < maxHealth) && other.gameObject.tag == "HealthPickup")
         {
             health += healthRestore;
@@ -237,8 +224,8 @@ public class PlayerController : MonoBehaviour
 
         if ((ammo < maxAmmo) && other.gameObject.tag == "AmmoPickup")
         {
-            
-            
+
+
             if (ammo > maxAmmo)
                 ammo = maxAmmo;
 
@@ -248,8 +235,18 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Acid")
         {
             transform.position = SpawnPoint.transform.position;
-            
+
         }
+
+        if (other.gameObject.tag == "Finish")
+        {
+            SceneManager.LoadScene("Level1");
+            transform.position = SpawnPoint.transform.position;
+
+        }
+
+
+
     }
 
 
