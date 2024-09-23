@@ -241,7 +241,11 @@ public class PlayerController : MonoBehaviour
         if (other.gameObject.tag == "Finish")
         {
             SceneManager.LoadScene("Level1");
-            transform.position = SpawnPoint.transform.position;
+
+
+
+           
+            
 
         }
 
