@@ -22,8 +22,6 @@ public class PlayerController : MonoBehaviour
     public float ammo = 0;
     public float maxAmmo = 0;
     public float reloadAmount = 0;
-    public float ammoRefillAmount = 0;
-    public float maxAmmoRefillAmount = 0;
     public float bulletLifespan = 0;
     
    
@@ -42,6 +40,7 @@ public class PlayerController : MonoBehaviour
     public int jumpsMax = 2;
     public bool sprintMode = false;
     public bool isGrounded = true;
+    public float stamina = 100;
 
     public float dashDist = 100;
     public int dashes = 1;
@@ -50,15 +49,13 @@ public class PlayerController : MonoBehaviour
     public float endDashSpeed = 100;
     public float dashingTime = 0;
 
-
-
-
+    
     [Header("User Settings")]
-    public bool sprintToggleOption = false;
     public float mouseSensitivity = 2.0f;
     public float Xsensitivity = 2.0f;
     public float Ysensitivity = 2.0f;
     public float camRotationLimit = 90f;
+    public bool GameOver = false;
 
     // Start is called before the first frame update
     void Start()
@@ -74,15 +71,23 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        camRotation.x += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
-        camRotation.y += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
 
-        camRotation.y = Mathf.Clamp(camRotation.y, -camRotationLimit, camRotationLimit);
+        if(GameOver == false)
+        {
 
-        playerCam.transform.localRotation = Quaternion.AngleAxis(camRotation.y, Vector3.left);
-        transform.localRotation = Quaternion.AngleAxis(camRotation.x, Vector3.up);
+            camRotation.x += Input.GetAxisRaw("Mouse X") * mouseSensitivity;
+            camRotation.y += Input.GetAxisRaw("Mouse Y") * mouseSensitivity;
 
-        if(Input.GetMouseButtonDown(0) && canFire && ammo > 0 && weaponId > 0)
+            camRotation.y = Mathf.Clamp(camRotation.y, -camRotationLimit, camRotationLimit);
+
+            playerCam.transform.localRotation = Quaternion.AngleAxis(camRotation.y, Vector3.left);
+            transform.localRotation = Quaternion.AngleAxis(camRotation.x, Vector3.up);
+            
+
+        }
+           
+
+        if(Input.GetMouseButtonDown(0) && canFire && ammo > 0 && weaponId > 0 && GameOver == false)
         {
             
              GameObject s = Instantiate(bullet, weaponSlot.position, weaponSlot.rotation);
@@ -98,7 +103,7 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        if(Input.GetKeyDown(KeyCode.R) )
+        if(Input.GetKeyDown(KeyCode.R) && GameOver == false )
         {
             reloadAmmo();
         } 
@@ -111,24 +116,18 @@ public class PlayerController : MonoBehaviour
         float verticalMove = Input.GetAxisRaw("Vertical");
         float horizontalMove = Input.GetAxisRaw("Horizontal");
 
-        if (!sprintToggleOption)
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            if (Input.GetKey(KeyCode.LeftShift))
-                sprintMode = true;
+            sprintMode = true; 
 
-            if (Input.GetKeyUp(KeyCode.LeftShift))
-                sprintMode = false;
         }
-
-        if (sprintToggleOption)
+    
+        if (Input.GetKeyUp(KeyCode.LeftShift))
         {
-            if (Input.GetKey(KeyCode.LeftShift) && verticalMove > 0)
-                sprintMode = true;
-
-            if (verticalMove <= 0)
-                sprintMode = false;
+             sprintMode = false;
         }
-
+               
+        
         if (!sprintMode)
             temp.x = verticalMove * speed;
 
@@ -148,7 +147,7 @@ public class PlayerController : MonoBehaviour
 
         
 
-        if (Input.GetKeyDown(KeyCode.Space) && jumps > 0)
+        if (Input.GetKeyDown(KeyCode.Space) && jumps > 0 && GameOver == false)
         {
             temp.y = jumpHeight;
             jumps --;
@@ -156,24 +155,22 @@ public class PlayerController : MonoBehaviour
 
         myRB.velocity = (temp.x * transform.forward) + (temp.z * transform.right) + (temp.y * transform.up);
 
-        if (Input.GetKeyDown(KeyCode.E) && dashes > 0 && isGrounded == false)
+        if (Input.GetKeyDown(KeyCode.E) && dashes > 0 && isGrounded == false && GameOver == false)
         {
 
             dashes--;
-
-
-            //myRB.AddForce(transform.right * dashDist, ForceMode.Impulse);
-
-            myRB.velocity = playerCam.transform.forward * dashDist;
-
-
-
-
-
+            
         }
 
 
        dashingTime += Time.deltaTime;
+
+        if (health < 0)
+            health = 0;
+
+        if (health == 0)
+           GameOver = true;
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -194,10 +191,8 @@ public class PlayerController : MonoBehaviour
                       ammo = 20;
                       maxAmmo = 20;
                       reloadAmount = 20;
-                      ammoRefillAmount = 20;
                     bulletLifespan = 3;
                     bulletSpeed = 1000;
-                    maxAmmoRefillAmount = 5;
                     break;
                    
 
@@ -218,18 +213,28 @@ public class PlayerController : MonoBehaviour
 
         if ((ammo < maxAmmo) && other.gameObject.tag == "AmmoPickup")
         {
-            reloadAmount = ammoRefillAmount;
-            ammoRefillAmount--;
+            
+            
             if (ammo > maxAmmo)
                 ammo = maxAmmo;
 
             Destroy(other.gameObject);
         }
 
-        if (other.gameObject.tag == "Enemy")
-            health--;
+       
     }
-  
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            health--;
+            
+        }
+            
+    }
+
     public void reloadAmmo()
     {
         if(ammo < maxAmmo)
@@ -248,11 +253,7 @@ public class PlayerController : MonoBehaviour
         }
            
 
-        if (reloadAmount == 0 && ammoRefillAmount > 0)
-        { 
-          reloadAmount = maxAmmoRefillAmount;
-            ammoRefillAmount--;
-        }
+        
             
     }
 
