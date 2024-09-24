@@ -1,20 +1,30 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class BasicEnemyController : MonoBehaviour
 {
+    [Header("Basic Stats")]
+    public int health = 5;
+    public int maxHealth = 5;
+    public int damageGive = 1;
+    public int damageReceive = 1;
+    public int pushBackForce = 10;
 
-    public int health = 3;
-    public int maxHealth = 3;
 
+
+
+    public PlayerController Player;
+    public NavMeshAgent agent;
 
 
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        Player = GameObject.Find("Player").GetComponent<PlayerController>();
+        agent = GetComponent<NavMeshAgent>();
     }
 
     // Update is called once per frame
@@ -25,7 +35,9 @@ public class BasicEnemyController : MonoBehaviour
             Destroy(gameObject);
         }
 
+        agent.destination = Player.transform.position;
 
+        
         
 
       
@@ -37,8 +49,9 @@ public class BasicEnemyController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Bullet")
         {
+          health -= damageReceive;
           Destroy(collision.gameObject);
-          health--;
+          
         }
 
     }

@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
 {
     Rigidbody myRB;
     Camera playerCam;
+    Transform cameraHolder;
 
     Vector2 camRotation;
 
@@ -57,7 +58,8 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         myRB = GetComponent<Rigidbody>();
-        playerCam = transform.GetChild(0).GetComponent<Camera>();
+        playerCam = Camera.main;
+        cameraHolder = transform.GetChild(0);
         transform.position = SpawnPoint.transform.position;
 
         camRotation = Vector2.zero;
@@ -69,6 +71,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
 
+        playerCam.transform.position = cameraHolder.position;
+
         if(GameOver == false)
         {
 
@@ -77,7 +81,8 @@ public class PlayerController : MonoBehaviour
 
             camRotation.y = Mathf.Clamp(camRotation.y, -camRotationLimit, camRotationLimit);
 
-            playerCam.transform.localRotation = Quaternion.AngleAxis(camRotation.y, Vector3.left);
+           
+            playerCam.transform.rotation = Quaternion.Euler(-camRotation.y, camRotation.x, 0);
             transform.localRotation = Quaternion.AngleAxis(camRotation.x, Vector3.up);
             
 
@@ -256,7 +261,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "BasicEnemy")
         {
             health--;
             
