@@ -37,10 +37,10 @@ public class BasicEnemyController : MonoBehaviour
 
         agent.destination = Player.transform.position;
 
-        
-        
 
-      
+       
+
+
 
     }
 
