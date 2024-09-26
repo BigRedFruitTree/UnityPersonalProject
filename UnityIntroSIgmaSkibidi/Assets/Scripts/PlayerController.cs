@@ -20,7 +20,6 @@ public class PlayerController : MonoBehaviour
     public int weaponId = 0;
     public float bulletSpeed = 15;
     public float fireRate = 0;
-    public float recoil = 0;
     public float ammo = 0;
     public float maxAmmo = 0;
     public float reloadAmount = 0;
@@ -93,8 +92,7 @@ public class PlayerController : MonoBehaviour
         {
             
              GameObject s = Instantiate(bullet, weaponSlot.position, weaponSlot.rotation);
-             s.GetComponent<Rigidbody>().AddForce(playerCam.transform.forward * bulletSpeed);
-             myRB.AddForce(-transform.forward * recoil, ForceMode.Impulse);
+            s.GetComponent<Rigidbody>().AddForce(playerCam.transform.forward * bulletSpeed);
              Destroy(s, bulletLifespan);
 
              canFire = false;
@@ -203,8 +201,7 @@ public class PlayerController : MonoBehaviour
                 case "Weapon1":
 
                     weaponId = 1;
-                    fireRate = 0.50f;
-                    recoil = 50;     
+                    fireRate = 0.50f;    
                     ammo = 20;
                     maxAmmo = 20;
                     reloadAmount = 20;
