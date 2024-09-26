@@ -94,6 +94,7 @@ public class PlayerController : MonoBehaviour
             
              GameObject s = Instantiate(bullet, weaponSlot.position, weaponSlot.rotation);
              s.GetComponent<Rigidbody>().AddForce(playerCam.transform.forward * bulletSpeed);
+             myRB.AddForce(-transform.forward * recoil, ForceMode.Impulse);
              Destroy(s, bulletLifespan);
 
              canFire = false;
@@ -203,7 +204,7 @@ public class PlayerController : MonoBehaviour
 
                     weaponId = 1;
                     fireRate = 0.50f;
-                    recoil = 1;
+                    recoil = 50;     
                     ammo = 20;
                     maxAmmo = 20;
                     reloadAmount = 20;
