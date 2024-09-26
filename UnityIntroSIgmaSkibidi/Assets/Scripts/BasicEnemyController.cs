@@ -17,6 +17,7 @@ public class BasicEnemyController : MonoBehaviour
 
     public PlayerController Player;
     public NavMeshAgent agent;
+    public GameObject detection;
 
 
 
@@ -25,6 +26,8 @@ public class BasicEnemyController : MonoBehaviour
     {
         Player = GameObject.Find("Player").GetComponent<PlayerController>();
         agent = GetComponent<NavMeshAgent>();
+        detection = GameObject.Find("Detection");
+
     }
 
     // Update is called once per frame
@@ -35,7 +38,17 @@ public class BasicEnemyController : MonoBehaviour
             Destroy(gameObject);
         }
 
-        agent.destination = Player.transform.position;
+
+
+
+
+        if (detection.GetComponent<BasicEnemyDetectionLogic>().detectPlayer == 1)
+        {
+            agent.destination = Player.transform.position;
+        }
+        
+
+        
 
 
        
@@ -55,5 +68,8 @@ public class BasicEnemyController : MonoBehaviour
         }
 
     }
+
+   
+
 
 }
