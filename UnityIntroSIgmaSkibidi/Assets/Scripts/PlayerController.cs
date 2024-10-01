@@ -211,7 +211,7 @@ public class PlayerController : MonoBehaviour
                     fireRate = 0.50f;    
                     ammo = 20;
                     maxAmmo = 20;
-                    reloadAmount = 20;
+                    reloadAmount = 2;
                     bulletLifespan = 3;
                     bulletSpeed = 1000;
                     break;
