@@ -24,6 +24,7 @@ public class PlayerController : MonoBehaviour
     public float ammo = 0;
     public float maxAmmo = 0;
     public float reloadAmount = 0;
+    public float reloadNumber = 0;
     public float bulletLifespan = 0;
     
    
@@ -214,6 +215,7 @@ public class PlayerController : MonoBehaviour
                     reloadAmount = 2;
                     bulletLifespan = 3;
                     bulletSpeed = 1000;
+                    reloadNumber = 20;
                     break;
 
 
@@ -234,11 +236,7 @@ public class PlayerController : MonoBehaviour
 
         if ((ammo < maxAmmo) && other.gameObject.tag == "AmmoPickup")
         {
-
-
-            if (ammo > maxAmmo)
-                ammo = maxAmmo;
-
+            reloadAmount++;
             Destroy(other.gameObject);
         }
 
@@ -269,8 +267,12 @@ public class PlayerController : MonoBehaviour
     {
         if(ammo < maxAmmo)
         {
-            ammo += reloadAmount;
+           if(reloadAmount > 0)
+           {
+            ammo += reloadNumber;
             reloadAmount--;
+           }
+            
 
         }
 
