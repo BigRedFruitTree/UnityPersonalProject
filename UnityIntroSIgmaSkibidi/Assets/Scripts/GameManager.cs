@@ -19,7 +19,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerData = GameObject.Find("Player").GetComponent<PlayerController>();
+        if (SceneManager.GetActiveScene().buildIndex > 0)
+            playerData = GameObject.Find("Player").GetComponent<PlayerController>();
 
 
 
@@ -28,30 +29,35 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        healthBar.fillAmount = Mathf.Clamp((float)playerData.health / (float)playerData.maxHealth, 0, 1);
-
-
-        ammoCounter.text = "Ammo: " + playerData.ammo;
-        reloadCounter.text = "Reloads: " + playerData.reloadAmount;
-
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (SceneManager.GetActiveScene().buildIndex > 0)
         {
-            if (!isPaused)
+
+
+            healthBar.fillAmount = Mathf.Clamp((float)playerData.health / (float)playerData.maxHealth, 0, 1);
+
+
+            ammoCounter.text = "Ammo: " + playerData.ammo;
+            reloadCounter.text = "Reloads: " + playerData.reloadAmount;
+
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
-                pauseMenu.SetActive(true);
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
+                if (!isPaused)
+                {
+                    pauseMenu.SetActive(true);
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
 
-                Time.timeScale = 0;
+                    Time.timeScale = 0;
 
-                isPaused = true;
+                    isPaused = true;
 
+                }
+                else
+                    Resume();
             }
-            else
-                Resume();
+
+
         }
-
-
     }
 
     public void Resume()
