@@ -160,16 +160,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd909f39490edb4f96a05e9dd5a7cee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GM: {fileID: 0}
   weaponSlot: {fileID: 0}
-  bullet: {fileID: 3855349331193212319, guid: 92bfd7ed25653fe41b2fb20cad9ea40d, type: 3}
+  bullet: {fileID: 6115305367666982174, guid: 1d8ccca273cc1a2498d8d91caaffbc6f, type: 3}
   canFire: 1
   weaponId: 0
   bulletSpeed: 1000
   fireRate: 0
-  recoil: 0
   ammo: 0
   maxAmmo: 0
   reloadAmount: 0
+  reloadNumber: 0
   bulletLifespan: 0
   health: 5
   maxHealth: 5
