@@ -26,7 +26,7 @@ public class BasicEnemyController : MonoBehaviour
     {
         Player = GameObject.Find("Player").GetComponent<PlayerController>();
         agent = GetComponent<NavMeshAgent>();
-        detection = GameObject.Find("Detection");
+        
 
     }
 
