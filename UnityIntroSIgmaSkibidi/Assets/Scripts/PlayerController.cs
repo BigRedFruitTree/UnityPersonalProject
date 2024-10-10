@@ -213,8 +213,8 @@ public class PlayerController : MonoBehaviour
                     ammo = 20;
                     maxAmmo = 20;
                     reloadAmount = 2;
-                    bulletLifespan = 3;
-                    bulletSpeed = 1000;
+                    bulletLifespan = 2;
+                    bulletSpeed = 5000;
                     reloadNumber = 20;
                     break;
 
