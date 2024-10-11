@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     public TextMeshProUGUI ammoCounter;
     public TextMeshProUGUI reloadCounter;
+    public TextMeshProUGUI boostCounter;
 
 
     // Start is called before the first frame update
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
 
             ammoCounter.text = "Ammo: " + playerData.ammo;
             reloadCounter.text = "Reloads: " + playerData.reloadAmount;
+            boostCounter.text = "Boost: " + playerData.stamina;
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {

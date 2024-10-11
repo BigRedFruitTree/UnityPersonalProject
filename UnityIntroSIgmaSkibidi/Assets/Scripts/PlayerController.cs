@@ -271,6 +271,8 @@ public class PlayerController : MonoBehaviour
         {
             Time.timeScale = 1;
             SceneManager.LoadScene("MainMenu");
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
 
         }
 
