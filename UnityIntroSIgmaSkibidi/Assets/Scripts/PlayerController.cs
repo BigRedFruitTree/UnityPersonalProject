@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 
 public class PlayerController : MonoBehaviour
@@ -246,7 +247,12 @@ public class PlayerController : MonoBehaviour
 
         }
 
-        
+        if (other.gameObject.name == "EndText")
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene("Level1");
+
+        }
 
 
 
@@ -260,7 +266,14 @@ public class PlayerController : MonoBehaviour
             health--;
             
         }
-            
+
+        if (collision.gameObject.name == "Elevator")
+        {
+            Time.timeScale = 1;
+            SceneManager.LoadScene("MainMenu");
+
+        }
+
     }
 
     public void reloadAmmo()
