@@ -9,12 +9,15 @@ public class GameManager : MonoBehaviour
 {
     public bool isPaused = false;
     public GameObject pauseMenu;
+    public GameObject playerUI;
     public PlayerController playerData;
     public Image healthBar;
-
+    public GameObject crossHair;
+    public TextMeshProUGUI jumpsCounter;
     public TextMeshProUGUI ammoCounter;
     public TextMeshProUGUI reloadCounter;
     public TextMeshProUGUI boostCounter;
+
 
 
     // Start is called before the first frame update
@@ -40,12 +43,15 @@ public class GameManager : MonoBehaviour
             ammoCounter.text = "Ammo: " + playerData.ammo;
             reloadCounter.text = "Reloads: " + playerData.reloadAmount;
             boostCounter.text = "Boost: " + playerData.stamina;
+            jumpsCounter.text = "Jumps: " + playerData.jumps;
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
                 if (!isPaused)
                 {
                     pauseMenu.SetActive(true);
+                    playerUI.SetActive(false);
+                    crossHair.SetActive(false);
                     Cursor.lockState = CursorLockMode.None;
                     Cursor.visible = true;
 
@@ -65,6 +71,8 @@ public class GameManager : MonoBehaviour
     public void Resume()
     {
         pauseMenu.SetActive(false);
+        playerUI.SetActive(true);
+        crossHair.SetActive(true);
         Time.timeScale = 1;
         Cursor.lockState = CursorLockMode.Confined;
         Cursor.visible = false;
