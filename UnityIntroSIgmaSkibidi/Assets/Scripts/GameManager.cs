@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI ammoCounter;
     public TextMeshProUGUI reloadCounter;
     public TextMeshProUGUI boostCounter;
+    public Slider mouseSensSliderMain;
 
 
 
