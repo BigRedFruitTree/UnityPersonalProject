@@ -199,7 +199,7 @@ public class PlayerController : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Weapon")
+        if ((other.gameObject.tag == "Weapon") && weaponId == 0)
         {
 
             other.gameObject.transform.SetPositionAndRotation(weaponSlot.position, weaponSlot.rotation);
@@ -217,6 +217,24 @@ public class PlayerController : MonoBehaviour
                     bulletLifespan = 2;
                     bulletSpeed = 5000;
                     reloadNumber = 20;
+                    break;
+
+
+                default:
+                    break;
+            }
+            switch (other.gameObject.name)
+            {
+                case "Sniper3":
+
+                    weaponId = 2;
+                    fireRate = 1.5f;
+                    ammo = 6;
+                    maxAmmo = 6;
+                    reloadAmount = 2;
+                    bulletLifespan = 2;
+                    bulletSpeed = 9000;
+                    reloadNumber = 6;
                     break;
 
 
