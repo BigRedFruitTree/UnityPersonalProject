@@ -62,9 +62,21 @@ public class BasicEnemyController : MonoBehaviour
     {
         if(collision.gameObject.tag == "Bullet")
         {
-          health -= damageReceive;
-          Destroy(collision.gameObject);
-          
+
+            if (Player.weaponId == 1)
+            {
+                damageReceive = 1;
+                health -= damageReceive;
+                Destroy(collision.gameObject);
+            }
+
+            if (Player.weaponId == 2)
+            {
+                damageReceive = 5;
+                health -= damageReceive;
+                Destroy(collision.gameObject);
+            }
+
         }
 
     }

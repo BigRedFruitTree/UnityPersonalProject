@@ -7,6 +7,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("User Settings")]
     public bool isPaused = false;
     public GameObject pauseMenu;
     public GameObject playerUI;
@@ -17,9 +18,14 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI ammoCounter;
     public TextMeshProUGUI reloadCounter;
     public TextMeshProUGUI boostCounter;
+
+    [Header("MainMenu Settings")]
+    public GameObject MainMenu;
+    public GameObject SettingsMenuMain;
     public Slider mouseSensSliderMain;
-
-
+    public TextMeshProUGUI sensitivityDisplayMain;
+    public GameObject player;
+    private PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +33,7 @@ public class GameManager : MonoBehaviour
         if (SceneManager.GetActiveScene().buildIndex > 0)
             playerData = GameObject.Find("Player").GetComponent<PlayerController>();
 
-
+        playerController = player.GetComponent<PlayerController>();
 
     }
 
@@ -99,6 +105,22 @@ public class GameManager : MonoBehaviour
         LoadLevel(SceneManager.GetActiveScene().buildIndex);
     }
 
+    public void SliderChangedMain()
+    {
+        float amount = mouseSensSliderMain.value;
+        playerController.mouseSensitivity = amount;
+        sensitivityDisplayMain.text = playerController.mouseSensitivity.ToString();
+    }
 
+    public void SettingsGoTo()
+    {
+        MainMenu.SetActive(false);
+        SettingsMenuMain.SetActive(true);
+    }
 
+    public void SettingsBack()
+    {
+        MainMenu.SetActive(true);
+        SettingsMenuMain.SetActive(false);
+    }
 }
