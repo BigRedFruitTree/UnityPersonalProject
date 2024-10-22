@@ -260,6 +260,7 @@ public class PlayerController : MonoBehaviour
 
         if ((health < maxHealth) && other.gameObject.tag == "HealthPickup")
         {
+            audioSource.PlayOneShot(pickupAudio, 0.4f);
             health += healthRestore;
             if (health > maxHealth)
                 health = maxHealth;
@@ -269,6 +270,7 @@ public class PlayerController : MonoBehaviour
 
         if ((ammo < maxAmmo) && other.gameObject.tag == "AmmoPickup")
         {
+            audioSource.PlayOneShot(pickupAudio, 0.4f);
             reloadAmount++;
             Destroy(other.gameObject);
         }
