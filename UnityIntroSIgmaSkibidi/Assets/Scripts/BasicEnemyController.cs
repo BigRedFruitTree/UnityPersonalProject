@@ -11,6 +11,8 @@ public class BasicEnemyController : MonoBehaviour
     public int damageGive = 1;
     public int damageReceive = 1;
     public int pushBackForce = 10;
+    public AudioSource audioSource;
+    public AudioClip EnemyHurtAudio;
 
 
 
@@ -26,7 +28,7 @@ public class BasicEnemyController : MonoBehaviour
     {
         Player = GameObject.Find("Player").GetComponent<PlayerController>();
         agent = GetComponent<NavMeshAgent>();
-        
+        audioSource = GetComponent<AudioSource>();
 
     }
 
@@ -35,6 +37,7 @@ public class BasicEnemyController : MonoBehaviour
     {
         if(health <= 0)
         {
+            audioSource.PlayOneShot(EnemyHurtAudio, 0.2f);
             Destroy(gameObject);
         }
 
@@ -65,6 +68,7 @@ public class BasicEnemyController : MonoBehaviour
 
             if (Player.weaponId == 1)
             {
+                audioSource.PlayOneShot(EnemyHurtAudio, 0.2f);
                 damageReceive = 1;
                 health -= damageReceive;
                 Destroy(collision.gameObject);
@@ -72,6 +76,7 @@ public class BasicEnemyController : MonoBehaviour
 
             if (Player.weaponId == 2)
             {
+                audioSource.PlayOneShot(EnemyHurtAudio, 0.2f);
                 damageReceive = 5;
                 health -= damageReceive;
                 Destroy(collision.gameObject);

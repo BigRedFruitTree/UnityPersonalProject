@@ -56,6 +56,15 @@ public class PlayerController : MonoBehaviour
     public float camRotationLimit = 90f;
     public bool GameOver = false;
 
+
+    [Header("Audio Settings")]
+    private AudioSource audioSource;
+    public AudioClip jumpAudio;
+    public AudioClip shoot1Audio;
+    public AudioClip pickupAudio;
+    public AudioClip hitHurtAudio;
+    public AudioClip reloadAudio;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -63,6 +72,7 @@ public class PlayerController : MonoBehaviour
         playerCam = Camera.main;
         cameraHolder = transform.GetChild(0);
         transform.position = SpawnPoint.transform.position;
+        audioSource = GetComponent<AudioSource>();
 
         camRotation = Vector2.zero;
         Cursor.visible = false;
@@ -100,6 +110,8 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && canFire && ammo > 0 && weaponId > 0 && GameOver == false)
             {
 
+
+                audioSource.PlayOneShot(shoot1Audio, 0.3f);
                 GameObject s = Instantiate(bullet, weaponSlot.position, weaponSlot.rotation);
                 s.GetComponent<Rigidbody>().AddForce(playerCam.transform.forward * bulletSpeed);
                 Destroy(s, bulletLifespan);
@@ -130,6 +142,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (stamina > 0)
                 {
+                   
                     sprintMode = true;
                 }
                 else
@@ -183,6 +196,7 @@ public class PlayerController : MonoBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space) && jumps > 0 && GameOver == false)
             {
+                audioSource.PlayOneShot(jumpAudio, 0.2f);
                 temp.y = jumpHeight;
                 jumps--;
             }
@@ -201,7 +215,7 @@ public class PlayerController : MonoBehaviour
     {
         if ((other.gameObject.tag == "Weapon") && weaponId == 0)
         {
-
+            audioSource.PlayOneShot(pickupAudio, 0.4f);
             other.gameObject.transform.SetPositionAndRotation(weaponSlot.position, weaponSlot.rotation);
             other.gameObject.transform.SetParent(weaponSlot);
 
@@ -261,8 +275,8 @@ public class PlayerController : MonoBehaviour
 
         if (other.gameObject.tag == "Acid")
         {
+            audioSource.PlayOneShot(hitHurtAudio, 0.5f);
             transform.position = SpawnPoint.transform.position;
-
         }
 
         if (other.gameObject.name == "EndText")
@@ -281,8 +295,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "BasicEnemy")
         {
+            audioSource.PlayOneShot(hitHurtAudio, 0.5f);
             health--;
-            
         }
 
         if (collision.gameObject.name == "Elevator")
@@ -302,8 +316,9 @@ public class PlayerController : MonoBehaviour
         {
            if(reloadAmount > 0)
            {
-            ammo += reloadNumber;
-            reloadAmount--;
+                audioSource.PlayOneShot(reloadAudio, 0.5f);
+                ammo += reloadNumber;
+                reloadAmount--;
            }
             
 
