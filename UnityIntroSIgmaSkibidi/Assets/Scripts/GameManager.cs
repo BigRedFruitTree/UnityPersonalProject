@@ -21,11 +21,14 @@ public class GameManager : MonoBehaviour
 
     [Header("MainMenu Settings")]
     public GameObject MainMenu;
+    public GameObject player;
     public GameObject SettingsMenuMain;
     public Slider mouseSensSliderMain;
     public TextMeshProUGUI sensitivityDisplayMain;
-    public GameObject player;
+    public Slider SFXSliderMain;
+    public TextMeshProUGUI SFXDisplayMain;
     private PlayerController playerController;
+    private AudioSource audioSourcePlayer;
 
     // Start is called before the first frame update
     void Start()
@@ -34,6 +37,7 @@ public class GameManager : MonoBehaviour
             playerData = GameObject.Find("Player").GetComponent<PlayerController>();
 
         playerController = player.GetComponent<PlayerController>();
+        audioSourcePlayer = player.GetComponent<AudioSource>();
 
     }
 
@@ -123,4 +127,14 @@ public class GameManager : MonoBehaviour
         MainMenu.SetActive(true);
         SettingsMenuMain.SetActive(false);
     }
+
+    public void SfxSliderChanged()
+    {
+        AudioSource audioSourcePlayer = player.GetComponent<AudioSource>();
+        float amount = SFXSliderMain.value;
+        audioSourcePlayer.volume = amount;
+        SFXDisplayMain.text = audioSourcePlayer.volume.ToString();
+    }
+
+
 }
