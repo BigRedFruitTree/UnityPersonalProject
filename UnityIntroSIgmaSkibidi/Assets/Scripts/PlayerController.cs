@@ -9,7 +9,7 @@ public class PlayerController : MonoBehaviour
 {
     public GameManager GM;
     Rigidbody myRB;
-    Camera playerCam;
+    public Camera playerCam;
     Transform cameraHolder;
 
     Vector2 camRotation;

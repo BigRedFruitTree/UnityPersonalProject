@@ -3478,12 +3478,17 @@ MonoBehaviour:
   reloadCounter: {fileID: 1811871045}
   boostCounter: {fileID: 56341845}
   MainMenu: {fileID: 0}
-  player: {fileID: 0}
+  player: {fileID: 8799169165935742158, guid: 415e0fa482de0d440983cbc875593393, type: 3}
   SettingsMenuMain: {fileID: 0}
   mouseSensSliderMain: {fileID: 0}
   sensitivityDisplayMain: {fileID: 0}
   SFXSliderMain: {fileID: 0}
   SFXDisplayMain: {fileID: 0}
+  MusicSliderMain: {fileID: 0}
+  MusicDisplayText: {fileID: 0}
+  Camera: {fileID: 0}
+  Camera2: {fileID: 0}
+  Camera3: {fileID: 359084023}
 --- !u!4 &470539691
 Transform:
   m_ObjectHideFlags: 0

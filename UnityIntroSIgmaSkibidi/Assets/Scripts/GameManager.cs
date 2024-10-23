@@ -1,9 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,15 +27,22 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI SFXDisplayMain;
     private PlayerController playerController;
     private AudioSource audioSourcePlayer;
+    private AudioSource audioSourceCameras;
+    public Slider MusicSliderMain;
+    public TextMeshProUGUI MusicDisplayText;
+    public GameObject Camera;
 
     // Start is called before the first frame update
     void Start()
     {
         if (SceneManager.GetActiveScene().buildIndex > 0)
+        {
             playerData = GameObject.Find("Player").GetComponent<PlayerController>();
+        }
 
         playerController = player.GetComponent<PlayerController>();
         audioSourcePlayer = player.GetComponent<AudioSource>();
+        audioSourceCameras = Camera.GetComponent<AudioSource>();
 
     }
 
@@ -134,6 +139,15 @@ public class GameManager : MonoBehaviour
         float amount = SFXSliderMain.value;
         audioSourcePlayer.volume = amount;
         SFXDisplayMain.text = audioSourcePlayer.volume.ToString();
+    }
+
+    public void MusicSliderChanged()
+    {
+        AudioSource audioSourceCameras = playerController.playerCam.GetComponent<AudioSource>();
+        float amount = MusicSliderMain.value;
+        audioSourceCameras.volume = amount;
+        MusicDisplayText.text = audioSourceCameras.volume.ToString();
+       
     }
 
 
