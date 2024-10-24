@@ -73,7 +73,6 @@ public class PlayerController : MonoBehaviour
         cameraHolder = transform.GetChild(0);
         transform.position = SpawnPoint.transform.position;
         audioSource = GetComponent<AudioSource>();
-
         camRotation = Vector2.zero;
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;

@@ -27,10 +27,11 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI SFXDisplayMain;
     private PlayerController playerController;
     private AudioSource audioSourcePlayer;
-    private AudioSource audioSourceCameras;
+    public AudioSource audioSourceMM;
+    public GameObject musicManager;
     public Slider MusicSliderMain;
     public TextMeshProUGUI MusicDisplayText;
-    public GameObject Camera;
+   
 
     // Start is called before the first frame update
     void Start()
@@ -40,9 +41,11 @@ public class GameManager : MonoBehaviour
             playerData = GameObject.Find("Player").GetComponent<PlayerController>();
         }
 
+        musicManager = GameObject.Find("MusicManager");
+
         playerController = player.GetComponent<PlayerController>();
         audioSourcePlayer = player.GetComponent<AudioSource>();
-        audioSourceCameras = Camera.GetComponent<AudioSource>();
+        audioSourceMM = musicManager.GetComponent<AudioSource>();
 
     }
 
@@ -143,11 +146,10 @@ public class GameManager : MonoBehaviour
 
     public void MusicSliderChanged()
     {
-        AudioSource audioSourceCameras = playerController.playerCam.GetComponent<AudioSource>();
+        AudioSource audioSourceMM = musicManager.GetComponent<AudioSource>();
         float amount = MusicSliderMain.value;
-        audioSourceCameras.volume = amount;
-        MusicDisplayText.text = audioSourceCameras.volume.ToString();
-       
+        audioSourceMM.volume = amount;
+        MusicDisplayText.text = audioSourceMM.volume.ToString();
     }
 
 
