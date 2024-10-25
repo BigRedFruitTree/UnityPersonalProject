@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     {
         if (SceneManager.GetActiveScene().buildIndex > 0)
         {
-
+            
 
             healthBar.fillAmount = Mathf.Clamp((float)playerData.health / (float)playerData.maxHealth, 0, 1);
 
@@ -83,9 +83,14 @@ public class GameManager : MonoBehaviour
                     Resume();
             }
 
-
+            
         }
+
+         
+
+
     }
+
 
     public void Resume()
     {
