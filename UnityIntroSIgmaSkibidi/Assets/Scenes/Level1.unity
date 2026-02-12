@@ -1055,6 +1055,39 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 98122359}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &116048836
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 116048837}
+  m_Layer: 0
+  m_Name: WeaponUi
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &116048837
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 116048836}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1107818749}
+  - {fileID: 1811871047}
+  m_Father: {fileID: 2113773292}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &116263296 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6021722225821858277, guid: 374bab0ad41559044853647bd68ef9c7, type: 3}
@@ -3693,6 +3726,7 @@ MonoBehaviour:
   isPaused: 0
   pauseMenu: {fileID: 139137611}
   playerUI: {fileID: 2113773291}
+  weaponUi: {fileID: 116048836}
   playerData: {fileID: 0}
   healthBar: {fileID: 1664499448}
   crossHair: {fileID: 323937751}
@@ -8083,10 +8117,10 @@ RectTransform:
   m_GameObject: {fileID: 1107818746}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -34.243526}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.49999997, y: 0.49999997, z: 0.49999997}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2113773292}
+  m_Father: {fileID: 116048837}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -12688,10 +12722,10 @@ RectTransform:
   m_GameObject: {fileID: 1811871044}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -34.243526}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.49999997, y: 0.49999997, z: 0.49999997}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 2113773292}
+  m_Father: {fileID: 116048837}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -15212,12 +15246,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 56341847}
-  - {fileID: 1107818749}
-  - {fileID: 1811871047}
   - {fileID: 1546995533}
   - {fileID: 387436002}
   - {fileID: 1664499450}
   - {fileID: 323937754}
+  - {fileID: 116048837}
   m_Father: {fileID: 261413013}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
