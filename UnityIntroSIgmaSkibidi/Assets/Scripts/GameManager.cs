@@ -62,7 +62,7 @@ public class GameManager : MonoBehaviour
             ammoCounter.text = "Ammo: " + playerData.ammo;
             reloadCounter.text = "Reloads: " + playerData.reloadAmount;
             boostCounter.text = "Boost: " + playerData.stamina;
-            jumpsCounter.text = "Jumps: " + playerData.jumps;
+            jumpsCounter.text = "Air Jumps: " + playerData.jumps;
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {

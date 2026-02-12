@@ -7,28 +7,18 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    public GameManager GM;
-    Rigidbody myRB;
-    public Camera playerCam;
-    Transform cameraHolder;
-
-    Vector2 camRotation;
-
-    public Transform weaponSlot;
     
     [Header("Weapon Stats")]
-    public GameObject bullet;
     public bool canFire = true;
     public int weaponId = 0;
     public float bulletSpeed = 15;
     public float fireRate = 0;
-    public float ammo = 0;
-    public float maxAmmo = 0;
-    public float reloadAmount = 0;
-    public float reloadNumber = 0;
+    public int ammo = 0;
+    public int maxAmmo = 0;
+    public int reloadAmount = 0;
+    public int maxReloads = 0;
+    public int ammoNumber = 0;
     public float bulletLifespan = 0;
-    
-   
 
     [Header("Player Stats")]
     public int health = 5;
@@ -49,13 +39,11 @@ public class PlayerController : MonoBehaviour
 
 
     [Header("User Settings")]
-    public GameObject SpawnPoint;
     public float mouseSensitivity = 2.0f;
     public float Xsensitivity = 2.0f;
     public float Ysensitivity = 2.0f;
     public float camRotationLimit = 90f;
     public bool GameOver = false;
-
 
     [Header("Audio Settings")]
     private AudioSource audioSource;
@@ -64,6 +52,16 @@ public class PlayerController : MonoBehaviour
     public AudioClip pickupAudio;
     public AudioClip hitHurtAudio;
     public AudioClip reloadAudio;
+
+    [Header("Refrences")]
+    public GameManager GM;
+    public GameObject SpawnPoint;
+    public Rigidbody myRB;
+    public Camera playerCam;
+    public Transform cameraHolder;
+    public Vector2 camRotation;
+    public Transform weaponSlot;
+    public GameObject bullet;
 
     // Start is called before the first frame update
     void Start()
@@ -128,9 +126,6 @@ public class PlayerController : MonoBehaviour
             {
                 reloadAmmo();
             }
-
-
-
 
             Vector3 temp = myRB.velocity;
 
@@ -208,6 +203,14 @@ public class PlayerController : MonoBehaviour
             if (health == 0)
                 GameOver = true;
 
+            if (reloadAmount > maxReloads && weaponId == 1)
+            {
+                reloadAmount = 8;
+            }
+            else if (reloadAmount > maxReloads && weaponId == 2)
+            {
+                reloadAmount = 4;
+            } 
         }
     }
     private void OnTriggerEnter(Collider other)
@@ -227,9 +230,10 @@ public class PlayerController : MonoBehaviour
                     ammo = 20;
                     maxAmmo = 20;
                     reloadAmount = 2;
+                    maxReloads = 8;
                     bulletLifespan = 2;
                     bulletSpeed = 5000;
-                    reloadNumber = 20;
+                    ammoNumber = 20;
                     break;
 
 
@@ -245,9 +249,10 @@ public class PlayerController : MonoBehaviour
                     ammo = 6;
                     maxAmmo = 6;
                     reloadAmount = 2;
+                    maxReloads = 4;
                     bulletLifespan = 2;
                     bulletSpeed = 9000;
-                    reloadNumber = 6;
+                    ammoNumber = 6;
                     break;
 
 
@@ -267,7 +272,7 @@ public class PlayerController : MonoBehaviour
             Destroy(other.gameObject);
         }
 
-        if ((ammo < maxAmmo) && other.gameObject.tag == "AmmoPickup")
+        if (ammo < maxAmmo && other.gameObject.tag == "AmmoPickup" && reloadAmount < maxReloads || ammoNumber < 2 && other.gameObject.tag == "AmmoPickup" && reloadAmount < maxReloads)
         {
             audioSource.PlayOneShot(pickupAudio, 0.4f);
             reloadAmount++;
@@ -318,7 +323,7 @@ public class PlayerController : MonoBehaviour
            if(reloadAmount > 0)
            {
                 audioSource.PlayOneShot(reloadAudio, 0.5f);
-                ammo += reloadNumber;
+                ammo += ammoNumber;
                 reloadAmount--;
            }
             
