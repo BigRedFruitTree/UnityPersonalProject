@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     public bool canFire = true;
     public int weaponId = 0;
     public float bulletSpeed = 15;
-    public float fireRate = 0;
+    public float fireCooldown = 0;
     public int ammo = 0;
     public int maxAmmo = 0;
     public int reloadAmount = 0;
@@ -227,7 +227,7 @@ public class PlayerController : MonoBehaviour
                 case "Weapon1":
 
                     weaponId = 1;
-                    fireRate = 0.50f;    
+                    fireCooldown = 0.50f;    
                     ammo = 20;
                     maxAmmo = 20;
                     reloadAmount = 2;
@@ -246,7 +246,7 @@ public class PlayerController : MonoBehaviour
                 case "Sniper3":
 
                     weaponId = 2;
-                    fireRate = 1.5f;
+                    fireCooldown = 1.5f;
                     ammo = 6;
                     maxAmmo = 6;
                     reloadAmount = 2;
@@ -339,7 +339,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator cooldownFire()
     {
-        yield return new WaitForSeconds(fireRate);
+        yield return new WaitForSeconds(fireCooldown);
             canFire = true;
     }
 
