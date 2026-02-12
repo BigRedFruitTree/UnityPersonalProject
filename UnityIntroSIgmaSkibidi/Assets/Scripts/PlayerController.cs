@@ -37,15 +37,15 @@ public class PlayerController : MonoBehaviour
     public float stamina = 150;
     public float maxStamina = 150;
 
-
     [Header("User Settings")]
     public float mouseSensitivity = 2.0f;
     public float Xsensitivity = 2.0f;
     public float Ysensitivity = 2.0f;
     public float camRotationLimit = 90f;
-    public bool GameOver = false;
 
-    [Header("Audio Settings")]
+    public bool GameOver = false;//DO NOT ALTER This Line please
+
+    [Header("Audio Settings")]//DO NOT ALTER Section please 
     private AudioSource audioSource;
     public AudioClip jumpAudio;
     public AudioClip shoot1Audio;
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
     public AudioClip hitHurtAudio;
     public AudioClip reloadAudio;
 
-    [Header("Refrences")]
+    [Header("Refrences")] //DO NOT ALTER Section please
     public GameManager GM;
     public GameObject SpawnPoint;
     public Rigidbody myRB;
@@ -84,10 +84,9 @@ public class PlayerController : MonoBehaviour
         if (!GM.isPaused)
         {
 
-
-
             playerCam.transform.position = cameraHolder.position;
 
+            //Handles Camera Rotation
             if (GameOver == false)
             {
 
@@ -103,11 +102,9 @@ public class PlayerController : MonoBehaviour
 
             }
 
-
+            //Left Mouse Button & Shooting
             if (Input.GetMouseButtonDown(0) && canFire && ammo > 0 && weaponId > 0 && GameOver == false)
             {
-
-
                 audioSource.PlayOneShot(shoot1Audio, 0.3f);
                 GameObject s = Instantiate(bullet, weaponSlot.position, weaponSlot.rotation);
                 s.GetComponent<Rigidbody>().AddForce(playerCam.transform.forward * bulletSpeed);
@@ -122,16 +119,19 @@ public class PlayerController : MonoBehaviour
 
             }
 
+            //Reloading
             if (Input.GetKeyDown(KeyCode.R) && GameOver == false)
             {
                 reloadAmmo();
             }
 
+            //Handles Movement
             Vector3 temp = myRB.velocity;
 
             float verticalMove = Input.GetAxisRaw("Vertical");
             float horizontalMove = Input.GetAxisRaw("Horizontal");
 
+            //Handles Sprinting
             if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
             {
                 if (stamina > 0)
@@ -177,6 +177,7 @@ public class PlayerController : MonoBehaviour
 
             temp.z = horizontalMove * speed;
 
+            //Handles Jump Detetction
             if (Physics.Raycast(transform.position, -transform.up, groundDetectDistance))
             {
                 jumps = jumpsMax;
@@ -187,7 +188,7 @@ public class PlayerController : MonoBehaviour
                 isGrounded = false;
 
 
-
+            //Jump if Pressing Spacebar
             if (Input.GetKeyDown(KeyCode.Space) && jumps > 0 && GameOver == false)
             {
                 audioSource.PlayOneShot(jumpAudio, 0.2f);
@@ -291,9 +292,6 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene("Level1");
 
         }
-
-
-
     }
 
 
@@ -316,6 +314,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
+    //Reloading Fucntion
     public void reloadAmmo()
     {
         if(ammo < maxAmmo)
@@ -325,8 +324,7 @@ public class PlayerController : MonoBehaviour
                 audioSource.PlayOneShot(reloadAudio, 0.5f);
                 ammo += ammoNumber;
                 reloadAmount--;
-           }
-            
+           }  
 
         }
 
@@ -339,9 +337,6 @@ public class PlayerController : MonoBehaviour
         }
            
     }
-
-    
-
     IEnumerator cooldownFire()
     {
         yield return new WaitForSeconds(fireRate);
