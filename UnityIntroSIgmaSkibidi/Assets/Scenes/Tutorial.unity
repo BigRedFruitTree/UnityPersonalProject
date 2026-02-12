@@ -2102,12 +2102,11 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 514727149}
-  - {fileID: 693068726}
-  - {fileID: 2016295080}
   - {fileID: 170757662}
   - {fileID: 113546356}
   - {fileID: 764991992}
   - {fileID: 386020793}
+  - {fileID: 2029423384}
   m_Father: {fileID: 1797057094}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &545380395
@@ -2938,10 +2937,10 @@ RectTransform:
   m_GameObject: {fileID: 693068725}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -34.243526}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.49999997, y: 0.49999997, z: 0.49999997}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 533428450}
+  m_Father: {fileID: 2029423384}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5311,6 +5310,7 @@ MonoBehaviour:
   isPaused: 0
   pauseMenu: {fileID: 1322515571}
   playerUI: {fileID: 533428449}
+  weaponUi: {fileID: 2029423383}
   playerData: {fileID: 0}
   healthBar: {fileID: 764991993}
   crossHair: {fileID: 386020792}
@@ -7426,10 +7426,10 @@ RectTransform:
   m_GameObject: {fileID: 2016295079}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -34.243526}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalScale: {x: 0.49999997, y: 0.49999997, z: 0.49999997}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 533428450}
+  m_Father: {fileID: 2029423384}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7535,6 +7535,39 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2016295079}
   m_CullTransparentMesh: 1
+--- !u!1 &2029423383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2029423384}
+  m_Layer: 0
+  m_Name: WeaponUI
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2029423384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2029423383}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2016295080}
+  - {fileID: 693068726}
+  m_Father: {fileID: 533428450}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2066710501
 GameObject:
   m_ObjectHideFlags: 0

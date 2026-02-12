@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public bool isPaused = false;
     public GameObject pauseMenu;
     public GameObject playerUI;
+    public GameObject weaponUi;
     public PlayerController playerData;
     public Image healthBar;
     public GameObject crossHair;
@@ -42,8 +43,6 @@ public class GameManager : MonoBehaviour
         }
 
         musicManager = GameObject.Find("MusicManager");
-
-        playerController = player.GetComponent<PlayerController>();
         audioSourcePlayer = player.GetComponent<AudioSource>();
         audioSourceMM = musicManager.GetComponent<AudioSource>();
 
@@ -82,13 +81,16 @@ public class GameManager : MonoBehaviour
                 else
                     Resume();
             }
-
             
+            if (playerData.weaponId <= 0)
+            {
+                weaponUi.SetActive(false);
+            }
+            else
+            {
+                weaponUi.SetActive(true);
+            }
         }
-
-         
-
-
     }
 
 
@@ -125,8 +127,8 @@ public class GameManager : MonoBehaviour
     public void SliderChangedMain()
     {
         float amount = mouseSensSliderMain.value;
-        playerController.mouseSensitivity = amount;
-        sensitivityDisplayMain.text = playerController.mouseSensitivity.ToString();
+        playerData.mouseSensitivity = amount;
+        sensitivityDisplayMain.text = playerData.mouseSensitivity.ToString();
     }
 
     public void SettingsGoTo()
