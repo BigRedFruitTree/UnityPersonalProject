@@ -19,6 +19,8 @@ public class PlayerController : MonoBehaviour
     public int maxReloads = 0;
     public int ammoNumber = 0;
     public float bulletLifespan = 0;
+    public GameObject firePointS;
+    public GameObject firePointW;
 
     [Header("Player Stats")]
     public int health = 5;
@@ -105,9 +107,19 @@ public class PlayerController : MonoBehaviour
             if (Input.GetMouseButtonDown(0) && canFire && ammo > 0 && weaponId > 0 && GameOver == false)
             {
                 audioSource.PlayOneShot(shoot1Audio, 0.3f);
-                GameObject s = Instantiate(bullet, weaponSlot.position, weaponSlot.rotation);
-                s.GetComponent<Rigidbody>().AddForce(playerCam.transform.forward * bulletSpeed);
-                Destroy(s, bulletLifespan);
+               
+                if (weaponId == 1)
+                {
+                    GameObject s = Instantiate(bullet, firePointW.transform.position, firePointW.transform.rotation);
+                    s.GetComponent<Rigidbody>().AddForce(firePointW.transform.forward * bulletSpeed);
+                    Destroy(s, bulletLifespan);
+                }
+                else if (weaponId == 2)
+                {
+                    GameObject s = Instantiate(bullet, firePointS.transform.position, firePointS.transform.rotation);
+                    s.GetComponent<Rigidbody>().AddForce(firePointS.transform.forward * bulletSpeed);
+                    Destroy(s, bulletLifespan);
+                }
 
                 canFire = false;
                 ammo--;
