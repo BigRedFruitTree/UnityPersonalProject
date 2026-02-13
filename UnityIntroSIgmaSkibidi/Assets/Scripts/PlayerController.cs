@@ -43,6 +43,7 @@ public class PlayerController : MonoBehaviour
     public float Ysensitivity = 2.0f;
     public float camRotationLimit = 90f;
 
+    public bool canHurt = true;
     public bool GameOver = false;//DO NOT ALTER This Line please
 
     [Header("Audio Settings")]//DO NOT ALTER Section please 
@@ -86,7 +87,6 @@ public class PlayerController : MonoBehaviour
 
             playerCam.transform.position = cameraHolder.position;
 
-            //Handles Camera Rotation
             if (GameOver == false)
             {
 
@@ -102,7 +102,6 @@ public class PlayerController : MonoBehaviour
 
             }
 
-            //Left Mouse Button & Shooting
             if (Input.GetMouseButtonDown(0) && canFire && ammo > 0 && weaponId > 0 && GameOver == false)
             {
                 audioSource.PlayOneShot(shoot1Audio, 0.3f);
@@ -115,23 +114,18 @@ public class PlayerController : MonoBehaviour
 
                 StartCoroutine("cooldownFire");
 
-
-
             }
 
-            //Reloading
             if (Input.GetKeyDown(KeyCode.R) && GameOver == false)
             {
                 reloadAmmo();
             }
 
-            //Handles Movement
             Vector3 temp = myRB.velocity;
 
             float verticalMove = Input.GetAxisRaw("Vertical");
             float horizontalMove = Input.GetAxisRaw("Horizontal");
 
-            //Handles Sprinting
             if (Input.GetKey(KeyCode.LeftShift) && stamina > 0)
             {
                 if (stamina > 0)
@@ -141,7 +135,6 @@ public class PlayerController : MonoBehaviour
                 }
                 else
                     sprintMode = false;
-
 
             }
 
@@ -153,13 +146,13 @@ public class PlayerController : MonoBehaviour
             if (sprintMode == true)
                 stamina--;
 
-            if (stamina < 0)
+            if (stamina <= 0)
                 stamina = 0;
 
             if (stamina == 0)
                 sprintMode = false;
 
-            if (sprintMode == false)
+            if (sprintMode == false && !Input.GetKey(KeyCode.LeftShift))
             {
                 stamina++;
             }
@@ -177,8 +170,7 @@ public class PlayerController : MonoBehaviour
 
             temp.z = horizontalMove * speed;
 
-            //Handles Jump Detetction
-            if (Physics.Raycast(transform.position, -transform.up, groundDetectDistance))
+            if (Physics.Raycast(transform.position, -transform.up, groundDetectDistance, LayerMask.GetMask("Ground")) || Physics.Raycast(transform.position, -transform.up, groundDetectDistance, LayerMask.GetMask("GroundWall")))
             {
                 jumps = jumpsMax;
 
@@ -187,8 +179,6 @@ public class PlayerController : MonoBehaviour
             else
                 isGrounded = false;
 
-
-            //Jump if Pressing Spacebar
             if (Input.GetKeyDown(KeyCode.Space) && jumps > 0 && GameOver == false)
             {
                 audioSource.PlayOneShot(jumpAudio, 0.2f);
@@ -299,8 +289,10 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.tag == "BasicEnemy")
         {
+            canHurt = false;
             audioSource.PlayOneShot(hitHurtAudio, 0.5f);
             health--;
+            StartCoroutine("cooldownFire");
         }
 
         if (collision.gameObject.name == "Elevator")
@@ -314,7 +306,6 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    //Reloading Fucntion
     public void reloadAmmo()
     {
         if(ammo < maxAmmo)
@@ -341,6 +332,12 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(fireCooldown);
             canFire = true;
+    }
+
+    IEnumerator cooldownHurt()
+    {
+        yield return new WaitForSeconds(0.5f);
+        canHurt = true;
     }
 
 }

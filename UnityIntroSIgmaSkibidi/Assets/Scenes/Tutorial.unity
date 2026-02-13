@@ -593,7 +593,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -133, y: -185}
+  m_AnchoredPosition: {x: -133, y: -157.1}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &170757663
@@ -1319,14 +1319,14 @@ RectTransform:
   m_GameObject: {fileID: 386020792}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -34.243526}
-  m_LocalScale: {x: 0.1, y: 0.1, z: 1}
+  m_LocalScale: {x: 0.05, y: 0.05, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 533428450}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 210.48996, y: 19.141724}
+  m_AnchoredPosition: {x: 210.48994, y: 19.141724}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &386020794
@@ -1503,7 +1503,7 @@ GameObject:
   - component: {fileID: 433512666}
   - component: {fileID: 433512665}
   - component: {fileID: 433512664}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Obstacle 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1863,7 +1863,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -132.99997, y: -157.3}
+  m_AnchoredPosition: {x: -132.99997, y: -181.2}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &514727150
@@ -1977,7 +1977,7 @@ GameObject:
   - component: {fileID: 522798987}
   - component: {fileID: 522798986}
   - component: {fileID: 522798985}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Obstacle 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2101,11 +2101,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 386020793}
   - {fileID: 514727149}
   - {fileID: 170757662}
   - {fileID: 113546356}
   - {fileID: 764991992}
-  - {fileID: 386020793}
   - {fileID: 2029423384}
   m_Father: {fileID: 1797057094}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3191,7 +3191,7 @@ GameObject:
   - component: {fileID: 742097931}
   - component: {fileID: 742097930}
   - component: {fileID: 742097929}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Obstacle 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3723,7 +3723,7 @@ GameObject:
   - component: {fileID: 923547863}
   - component: {fileID: 923547862}
   - component: {fileID: 923547861}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Obstacle 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3830,7 +3830,8 @@ GameObject:
   - component: {fileID: 935203045}
   - component: {fileID: 935203044}
   - component: {fileID: 935203043}
-  m_Layer: 0
+  - component: {fileID: 935203046}
+  m_Layer: 3
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3925,6 +3926,37 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 935203041}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &935203046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 935203041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AgentTypeID: 0
+  m_CollectObjects: 0
+  m_Size: {x: 10, y: 10, z: 10}
+  m_Center: {x: 0, y: 2, z: 0}
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_UseGeometry: 0
+  m_DefaultArea: 0
+  m_GenerateLinks: 0
+  m_IgnoreNavMeshAgent: 1
+  m_IgnoreNavMeshObstacle: 1
+  m_OverrideTileSize: 0
+  m_TileSize: 256
+  m_OverrideVoxelSize: 0
+  m_VoxelSize: 0.16666667
+  m_MinRegionArea: 2
+  m_NavMeshData: {fileID: 23800000, guid: ff24b429db2e9e6458b164996ab8c429, type: 2}
+  m_BuildHeightMesh: 0
 --- !u!1 &953105229
 GameObject:
   m_ObjectHideFlags: 0
@@ -4185,7 +4217,7 @@ GameObject:
   - component: {fileID: 1134345670}
   - component: {fileID: 1134345669}
   - component: {fileID: 1134345668}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Obstacle 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4484,7 +4516,7 @@ GameObject:
   - component: {fileID: 1291493538}
   - component: {fileID: 1291493537}
   - component: {fileID: 1291493536}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Obstacle 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5747,7 +5779,7 @@ GameObject:
   - component: {fileID: 1703062774}
   - component: {fileID: 1703062773}
   - component: {fileID: 1703062772}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Obstacle 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5899,7 +5931,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Walk/Run against a wall to wallrun.
+  m_text: Walk/Run against a blue wall to wallrun.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6029,7 +6061,7 @@ GameObject:
   - component: {fileID: 1774056591}
   - component: {fileID: 1774056590}
   - component: {fileID: 1774056589}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Obstacle 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6324,7 +6356,7 @@ GameObject:
   - component: {fileID: 1808213791}
   - component: {fileID: 1808213790}
   - component: {fileID: 1808213789}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Obstacle 11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6970,7 +7002,7 @@ GameObject:
   - component: {fileID: 1923426642}
   - component: {fileID: 1923426641}
   - component: {fileID: 1923426644}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Obstacle 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7115,7 +7147,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 221.11386, y: 4.8958693}
+  m_AnchoredPosition: {x: 221.11386, y: 5.11}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1931191296
@@ -7140,7 +7172,10 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'Press Space to jump.
 
-    You can jump in the Air.'
+    You can jump on the ground,
+
+    and in the
+    air.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7167,8 +7202,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 15
+  m_fontSizeBase: 15
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -7304,7 +7339,7 @@ GameObject:
   - component: {fileID: 1999969796}
   - component: {fileID: 1999969795}
   - component: {fileID: 1999969794}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Obstacle 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7758,8 +7793,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -7879,10 +7914,14 @@ PrefabInstance:
       propertyPath: m_AngularSpeed
       value: 120
       objectReference: {fileID: 0}
+    - target: {fileID: 702270122937647671, guid: 374bab0ad41559044853647bd68ef9c7, type: 3}
+      propertyPath: m_AutoTraverseOffMeshLink
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4742262108526768093, guid: 374bab0ad41559044853647bd68ef9c7, type: 3}
       propertyPath: detection
       value: 
-      objectReference: {fileID: 2420379573944060827}
+      objectReference: {fileID: 0}
     - target: {fileID: 6021722225821858277, guid: 374bab0ad41559044853647bd68ef9c7, type: 3}
       propertyPath: m_RootOrder
       value: 12
@@ -7936,11 +7975,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 374bab0ad41559044853647bd68ef9c7, type: 3}
---- !u!1 &2420379573944060827 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2420379574518306619, guid: 374bab0ad41559044853647bd68ef9c7, type: 3}
-  m_PrefabInstance: {fileID: 2420379573944060826}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4121317022487624724
 Transform:
   m_ObjectHideFlags: 0
@@ -7949,8 +7983,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4121317022487624727}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.62, y: -0.39, z: 1.22}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6, y: -0.39, z: 1.22}
   m_LocalScale: {x: 1.4866985, y: 0.20671, z: 0.5000001}
   m_ConstrainProportionsScale: 0
   m_Children: []

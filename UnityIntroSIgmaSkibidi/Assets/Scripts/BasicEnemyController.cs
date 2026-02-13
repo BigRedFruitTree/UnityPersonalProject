@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -10,16 +11,13 @@ public class BasicEnemyController : MonoBehaviour
     public int maxHealth = 5;
     public int damageGive = 1;
     public int damageReceive = 1;
-    public int pushBackForce = 10;
+    public float playerDistance;
+
+    [Header("Refs")]
     public AudioSource audioSource;
     public AudioClip EnemyHurtAudio;
-
-
-
-
     public PlayerController Player;
     public NavMeshAgent agent;
-    public GameObject detection;
 
 
 
@@ -35,29 +33,22 @@ public class BasicEnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(health <= 0)
+        playerDistance = Vector3.Distance(transform.position, Player.gameObject.transform.position);
+
+        if (health <= 0)
         {
             audioSource.PlayOneShot(EnemyHurtAudio, 0.2f);
             Destroy(gameObject);
         }
 
-
-
-
-
-        if (detection.GetComponent<BasicEnemyDetectionLogic>().detectPlayer == 1)
+        if (playerDistance <= 30f)
         {
             agent.destination = Player.transform.position;
         }
-        
-
-        
-
-
-       
-
-
-
+        else
+        {
+            agent.destination = agent.transform.position;
+        }
     }
 
 
